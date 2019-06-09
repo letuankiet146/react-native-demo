@@ -22,7 +22,9 @@ export default class InputAndButton extends Component {
     }
 
     onPressHandler = () => {
-        this.props.buttonEvent(this.state.inputValue);
+        if(this.state.inputValue !== ""){
+            this.props.buttonEvent(this.state.inputValue);
+        } 
     }
 
 } 
