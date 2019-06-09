@@ -10,8 +10,8 @@ const listView = (props) => (
                 <ItemView
                     textData={item.value}
                     keyData={item.key}
-                    touchHandler={()=>{
-                        props.deleteHanlder(item.key)
+                    onSelected={()=>{
+                        props.selectedHanlder(item.key)
                     }} />
             )
         }
