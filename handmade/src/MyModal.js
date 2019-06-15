@@ -1,6 +1,7 @@
-import React, {Component} from "react"
-import { View, Text, Button, Image, StyleSheet, Modal } from "react-native"
+import React, { Component } from "react"
+import { View, Text, Button, Image, StyleSheet, Modal, TouchableOpacity } from "react-native"
 import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 class myModal extends Component {
     onDeleteHandler = () => {
@@ -14,7 +15,7 @@ class myModal extends Component {
             type: 'DESELECTED'
         })
     }
-    render(){
+    render() {
         {
             let uiModal = null;
             if (this.props.modalContent !== null) {
@@ -23,11 +24,19 @@ class myModal extends Component {
                         <Image
                             style={styles.imageStyle}
                             source={this.props.modalContent.image} />
-        
+
                         <Text style={styles.placeName}>{this.props.modalContent.value}</Text>
-                        <Button title="Delete" onPress={this.onDeleteHandler} />
-                        <Button title="Close" onPress={this.onCloseHandler} />
-                    </View>
+                        <View>
+                            <TouchableOpacity onPress={this.onDeleteHandler}>
+                                <Icon size={40} name="md-trash" />
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={this.onCloseHandler}>
+                                <Icon size={40} name="md-close-circle" />
+                            </TouchableOpacity>
+                        </View>
+                    </View >
                 );
             }
             return (
@@ -50,12 +59,12 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         fontSize: 28
-    }
+    } 
 })
 
-const mapStateToProps = (state)=> {
+const mapStateToProps = (state) => {
     return {
-        modalContent : state.modalContent
+        modalContent: state.modalContent
     }
 }
 
