@@ -1,29 +1,44 @@
-import React from "react"
+import React, {Component} from "react"
 import { View, Text, Button, Image, StyleSheet, Modal } from "react-native"
+import { connect } from 'react-redux'
 
-const myModal = (props) => {
-    let uiModal = null;
-    if (props.modalContent !== null) {
-        uiModal = (
-            <View>
-                <Image
-                    style={styles.imageStyle}
-                    source={props.modalContent.image} />
-
-                <Text style={styles.placeName}>{props.modalContent.value}</Text>
-                <Button title="Delete" onPress={props.modalDelete} />
-                <Button title="Close" onPress={props.modalClose} />
-            </View>
-        );
+class myModal extends Component {
+    onDeleteHandler = () => {
+        this.props.dispatch({
+            type: 'DELETE'
+        })
     }
 
-    return (
-        <Modal 
-        animationType="slide"
-        visible={props.modalContent !== null}>
-            {uiModal}
-        </Modal>
-    );
+    onCloseHandler = () => {
+        this.props.dispatch({
+            type: 'DESELECTED'
+        })
+    }
+    render(){
+        {
+            let uiModal = null;
+            if (this.props.modalContent !== null) {
+                uiModal = (
+                    <View>
+                        <Image
+                            style={styles.imageStyle}
+                            source={this.props.modalContent.image} />
+        
+                        <Text style={styles.placeName}>{this.props.modalContent.value}</Text>
+                        <Button title="Delete" onPress={this.onDeleteHandler} />
+                        <Button title="Close" onPress={this.onCloseHandler} />
+                    </View>
+                );
+            }
+            return (
+                <Modal
+                    animationType="slide"
+                    visible={this.props.modalContent !== null}>
+                    {uiModal}
+                </Modal>
+            );
+        }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -35,7 +50,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         fontSize: 28
-      }
+    }
 })
 
-export default myModal
+const mapStateToProps = (state)=> {
+    return {
+        modalContent : state.modalContent
+    }
+}
+
+export default connect(mapStateToProps)(myModal)

@@ -1,22 +1,36 @@
-import React from "react"
-import { FlatList} from "react-native"
+import React, { Component } from "react"
+import { FlatList } from "react-native"
 import ItemView from './ItemView'
+import { connect } from 'react-redux'
 
-const listView = (props) => (
-    <FlatList
-        data={props.listViewData}
-        renderItem={
-            ({item}) => (
-                <ItemView
-                    textData={item.value}
-                    keyData={item.key}
-                    onSelected={()=>{
-                        props.selectedHanlder(item.key)
-                    }} />
-            )
-        }
-    />
-);
+class listView extends Component {
+    
+    render() {
+        return (
+            <FlatList
+                data={this.props.listViewData}
+                renderItem={
+                    ({ item }) => (
+                        <ItemView
+                            textData={item.value}
+                            keyData={item.key}
+                            onSelected={()=>{
+                                this.props.dispatch({
+                                    type: 'SELECTED',
+                                    keyData: item.key
+                                })
+                            }} />
+                    )
+                }
+            />
+        );
+    }
+}
 
 
-export default listView 
+const mapStateToProps = (state) => {
+    return {
+        listViewData: state.stateValueArr
+    }
+}
+export default connect(mapStateToProps)(listView)
