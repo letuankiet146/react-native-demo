@@ -1,2 +1,2 @@
 # react-native-demo
-# new comment
+This is project use for learning react-native
