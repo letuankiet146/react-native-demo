@@ -7,17 +7,15 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import InputAndButton from './src/InputAndButton'
 import ListView from './src/ListView'
 import MyModal from './src/MyModal'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 
 
 class App extends Component {
-   
-
   render() {
     return (
       <View style={styles.container}>
@@ -25,7 +23,7 @@ class App extends Component {
           modalContent={this.props.modalContent}
         />
         <InputAndButton />
-        <ListView 
+        <ListView
           listViewData={this.props.stateValueArr} />
       </View>
     );
